@@ -309,6 +309,59 @@ textarea{min-height:120px;resize:vertical;line-height:1.6}
 .print-answer{display:none}
 .quiz-actions{display:flex;gap:10px;justify-content:flex-end;margin-top:24px}
 
+/* ---------- media ---------- */
+.watch{
+  display:grid;grid-template-columns:.8fr 1.2fr;gap:32px;align-items:center;
+  background:var(--card);border:1px solid var(--line);border-radius:14px;padding:22px 22px 22px 22px;margin:0 0 64px;
+}
+.watch .kicker{margin-bottom:8px}
+.watch h2{font-size:clamp(1.35rem,2.4vw,1.7rem);margin-bottom:.45em}
+.watch p{color:var(--ink-2);margin-bottom:.9em}
+.media-meta{display:flex;gap:8px;flex-wrap:wrap}
+.media-meta span{font-size:.82rem;color:var(--ink-2);background:var(--paper);border:1px solid var(--line);border-radius:999px;padding:3px 11px}
+.screen{
+  position:relative;aspect-ratio:16/9;border-radius:10px;overflow:hidden;background:#101719;
+  box-shadow:0 14px 30px -20px rgba(28,38,40,.6);
+}
+.screen video{display:block;width:100%;height:100%;object-fit:contain;background:#101719}
+.screen-play{
+  position:absolute;inset:0;border:0;cursor:pointer;display:grid;place-items:center;
+  background:linear-gradient(180deg,rgba(16,23,25,0) 40%,rgba(16,23,25,.55));
+  transition:background .2s;
+}
+.screen-play i{
+  width:74px;height:74px;border-radius:50%;background:var(--teal);display:grid;place-items:center;
+  box-shadow:0 0 0 8px rgba(245,242,234,.18);transition:transform .2s, background .2s;
+}
+.screen-play:hover i{transform:scale(1.06);background:var(--teal-2)}
+.screen-play:focus-visible i{outline:3px solid #e7b84a;outline-offset:4px}
+.screen.started .screen-play{display:none}
+
+.listen{
+  display:grid;grid-template-columns:auto 1fr;gap:20px;align-items:center;margin-top:22px;
+  background:var(--card);border:1px solid var(--line);border-inline-start:4px solid var(--teal);
+  border-radius:var(--radius);padding:20px 22px;
+}
+.listen-play{
+  width:60px;height:60px;border-radius:50%;border:0;cursor:pointer;flex:none;
+  background:var(--teal);display:grid;place-items:center;transition:background .15s, transform .15s;
+}
+.listen-play:hover{background:var(--teal-2);transform:scale(1.04)}
+.listen-play .i-pause{display:none}
+.listen.playing .listen-play .i-play{display:none}
+.listen.playing .listen-play .i-pause{display:block}
+.listen .kicker{margin-bottom:2px}
+.listen-title{font-family:var(--serif);font-size:1.2rem;font-weight:700;display:block;line-height:1.35;margin-bottom:10px}
+.listen-bar{display:flex;align-items:center;gap:10px}
+.listen-bar input[type=range]{flex:1;accent-color:var(--teal);cursor:pointer;margin:0;min-width:0}
+.listen-btn{
+  font:inherit;font-family:var(--mono);font-size:.8rem;cursor:pointer;flex:none;
+  border:1px solid var(--line);background:#fff;color:var(--ink-2);border-radius:6px;padding:3px 8px;
+}
+.listen-btn:hover{border-color:var(--ink-2);color:var(--ink)}
+.listen-foot{display:flex;justify-content:space-between;align-items:center;gap:10px;margin-top:6px;font-size:.85rem;color:var(--muted)}
+.listen-time{font-family:var(--mono);direction:ltr;unicode-bidi:isolate}
+
 footer{border-top:1px solid var(--line);padding:22px 0;font-size:.85rem;color:var(--muted)}
 footer .wrap{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap}
 
@@ -324,6 +377,7 @@ footer .wrap{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap}
   .hero,.two-col,.path-cards,.proscons,.arena{grid-template-columns:1fr}
   .side + .side{border-inline-start:0;border-top:1px solid var(--line)}
   .three-col{grid-template-columns:1fr}
+  .watch{grid-template-columns:1fr;gap:18px;padding:16px}
   .naming{grid-template-columns:1fr 1fr}
   .site-header .wrap{flex-direction:column;align-items:stretch;gap:6px;padding-top:10px;padding-bottom:8px}
   nav.tabs{overflow-x:auto}
@@ -335,12 +389,13 @@ footer .wrap{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap}
   .wrap{padding:0 16px}
   .brand small{display:none}
   .lab-task{padding:18px 16px}
+  .listen{grid-template-columns:1fr;gap:12px;padding:16px}
 }
 
 /* ---------- print (quiz) ---------- */
 @media print{
   body{background:#fff;font-size:12pt}
-  .site-header, footer, .quiz-actions, .feedback, .saved, .next-link{display:none !important}
+  .site-header, footer, .quiz-actions, .feedback, .saved, .next-link, .watch, .listen{display:none !important}
   .page{display:none !important}
   #quiz{display:block !important;padding:0}
   .q{break-inside:avoid;border-color:#999}
@@ -387,6 +442,19 @@ footer .wrap{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap}
       </div>
       <div class="hero-art"><svg id="heroArt" viewBox="0 0 420 300" aria-hidden="true"></svg></div>
     </div>
+
+    <section class="watch" aria-labelledby="vid1Title">
+      <div>
+        <span class="kicker">צפייה · לפני שמתחילים</span>
+        <h2 id="vid1Title">הצלפים של מערכת החיסון: איך נוגדנים עובדים</h2>
+        <p>סרטון קצר שמציג איך נוגדן מזהה מטרה אחת מתוך אינספור מולקולות בגוף ונקשר אליה בדיוק. כדאי לצפות בו לפני שממשיכים לסעיפים הבאים.</p>
+        <div class="media-meta"><span>סרטון</span><span data-dur="vid1">…</span></div>
+      </div>
+      <div class="screen">
+        <video id="vid1" preload="metadata" playsinline src="הצלפים_של_מערכת_החיסון__איך_נוגדנים_עובדים.mp4#t=0.1"></video>
+        <button class="screen-play" type="button" aria-label="הפעלת הסרטון"><i><svg width="26" height="28" viewBox="0 0 26 28" aria-hidden="true"><path d="M4 2 L24 14 L4 26 Z" fill="#fff"/></svg></i></button>
+      </div>
+    </section>
 
     <section class="block">
       <div class="section-head"><span class="num">1.1</span><h2>מהו נוגדן?</h2></div>
@@ -604,6 +672,19 @@ footer .wrap{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap}
       <p class="lead">נוגדנים זהים לחלוטין, שכולם מקורם בתא B אחד. כולם מזהים את אותו אפיטופ בדיוק, ואפשר לייצר אותם בכמות בלתי מוגבלת ובאיכות אחידה.</p>
     </div>
 
+    <section class="watch" aria-labelledby="vid2Title">
+      <div>
+        <span class="kicker">צפייה · פתיחת הפרק</span>
+        <h2 id="vid2Title">איך הפכנו את מערכת החיסון לתרופה ממוקדת</h2>
+        <p>מהרעיון לשכפל תא B אחד ועד תרופות שמכוונות לתאים מסוימים בגוף. הסרטון נותן רקע לשיטת ההיברידומה ולשימושים הרפואיים שתלמדו בהמשך הפרק.</p>
+        <div class="media-meta"><span>סרטון</span><span data-dur="vid2">…</span></div>
+      </div>
+      <div class="screen">
+        <video id="vid2" preload="metadata" playsinline src="איך_הפכנו_את_מערכת_החיסון_לתרופה_ממוקדת.mp4#t=0.1"></video>
+        <button class="screen-play" type="button" aria-label="הפעלת הסרטון"><i><svg width="26" height="28" viewBox="0 0 26 28" aria-hidden="true"><path d="M4 2 L24 14 L4 26 Z" fill="#fff"/></svg></i></button>
+      </div>
+    </section>
+
     <section class="block">
       <div class="section-head"><span class="num">3.1</span><h2>הבעיה והפתרון</h2></div>
       <div class="two-col">
@@ -675,6 +756,27 @@ footer .wrap{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap}
         <div class="card case"><span class="badge">אבחון</span><div><h3>בדיקת הריון ביתית</h3><p>נוגדנים מונוקלונאליים נגד ההורמון hCG שמופרש בתחילת ההריון. הספציפיות הגבוהה מונעת תוצאה חיובית שגויה בגלל הורמונים דומים.</p></div></div>
         <div class="card case"><span class="badge">אונקולוגיה</span><div><h3>טרסטוזומאב (Herceptin)</h3><p>נקשר לקולטן HER2, שמצוי בעודף על פני תאים בחלק מסוגי סרטן השד, ומעכב את חלוקתם.</p></div></div>
         <div class="card case"><span class="badge">אונקולוגיה</span><div><h3>ריטוקסימאב</h3><p>נקשר לחלבון CD20 שעל פני תאי B, ומשמש לטיפול בסוגי לימפומה ובמחלות אוטואימוניות.</p></div></div>
+      </div>
+
+      <div class="listen" id="aud1Box">
+        <audio id="aud1" preload="metadata" src="פיתוח_נוגדנים_מונוקלונליים_לטיפול_ממוקד_בסרטן.m4a"></audio>
+        <button class="listen-play" type="button" aria-label="השמעה">
+          <svg class="i-play" width="22" height="24" viewBox="0 0 26 28" aria-hidden="true"><path d="M5 2 L24 14 L5 26 Z" fill="#fff"/></svg>
+          <svg class="i-pause" width="20" height="22" viewBox="0 0 20 22" aria-hidden="true"><rect x="2" y="1" width="5.5" height="20" rx="1.5" fill="#fff"/><rect x="12.5" y="1" width="5.5" height="20" rx="1.5" fill="#fff"/></svg>
+        </button>
+        <div>
+          <span class="kicker">להעמקה · האזנה</span>
+          <span class="listen-title">פיתוח נוגדנים מונוקלונליים לטיפול ממוקד בסרטן</span>
+          <div class="listen-bar">
+            <button class="listen-btn" type="button" data-skip="-15" aria-label="15 שניות אחורה">15−</button>
+            <input type="range" min="0" max="1000" value="0" step="1" aria-label="מיקום בהקלטה">
+            <button class="listen-btn" type="button" data-skip="15" aria-label="15 שניות קדימה">+15</button>
+          </div>
+          <div class="listen-foot">
+            <span class="listen-time">0:00 / --:--</span>
+            <button class="listen-btn" type="button" data-speed aria-label="מהירות השמעה">1×</button>
+          </div>
+        </div>
       </div>
     </section>
 
@@ -835,6 +937,7 @@ function route(){
   });
   if (location.hash !== "#lab") window.scrollTo(0,0);
   Sim.setVisible(id === "intro");
+  Media.pauseAll();
 }
 
 /* ================= HERO ART ================= */
@@ -1639,6 +1742,89 @@ var Quiz = (function(){
   document.getElementById("printQuiz").addEventListener("click", function(){ window.print(); });
 
   render();
+})();
+
+/* ================= MEDIA ================= */
+var Media = (function(){
+  var all = [].slice.call(document.querySelectorAll("video, audio"));
+
+  function fmt(s){
+    if (!isFinite(s)) return "--:--";
+    s = Math.floor(s);
+    var h = Math.floor(s / 3600), m = Math.floor(s % 3600 / 60), x = s % 60;
+    return (h ? h + ":" + (m < 10 ? "0" : "") : "") + m + ":" + (x < 10 ? "0" : "") + x;
+  }
+  function onMeta(m, fn){
+    if (m.readyState >= 1) fn(); else m.addEventListener("loadedmetadata", fn);
+  }
+
+  /* only one item plays at a time */
+  all.forEach(function(m){
+    m.addEventListener("play", function(){
+      all.forEach(function(o){ if (o !== m) o.pause(); });
+    });
+  });
+
+  /* duration labels */
+  document.querySelectorAll("[data-dur]").forEach(function(span){
+    var m = document.getElementById(span.getAttribute("data-dur"));
+    onMeta(m, function(){
+      var min = Math.round(m.duration / 60);
+      span.textContent = min < 1 ? Math.round(m.duration) + " שניות" : min + " דקות";
+    });
+  });
+
+  /* video: poster-style play button, native controls after start */
+  document.querySelectorAll(".screen").forEach(function(sc){
+    var v = sc.querySelector("video");
+    function start(){ v.controls = true; sc.classList.add("started"); }
+    sc.querySelector(".screen-play").addEventListener("click", function(){ start(); v.play(); });
+    v.addEventListener("play", start);
+  });
+
+  /* audio player */
+  document.querySelectorAll(".listen").forEach(function(box){
+    var a = box.querySelector("audio"),
+        play = box.querySelector(".listen-play"),
+        range = box.querySelector("input[type=range]"),
+        time = box.querySelector(".listen-time"),
+        speed = box.querySelector("[data-speed]"),
+        RATES = [1, 1.25, 1.5, 1.75, 2], ri = 0, dragging = false;
+
+    function paint(){
+      time.textContent = fmt(a.currentTime) + " / " + fmt(a.duration);
+      if (!dragging && a.duration) range.value = Math.round(a.currentTime / a.duration * 1000);
+    }
+    onMeta(a, paint);
+    a.addEventListener("timeupdate", paint);
+    a.addEventListener("play", function(){ box.classList.add("playing"); play.setAttribute("aria-label", "השהיה"); });
+    a.addEventListener("pause", function(){ box.classList.remove("playing"); play.setAttribute("aria-label", "השמעה"); });
+    a.addEventListener("ended", function(){ a.currentTime = 0; });
+
+    play.addEventListener("click", function(){ if (a.paused) a.play(); else a.pause(); });
+    range.addEventListener("input", function(){
+      dragging = true;
+      if (a.duration) time.textContent = fmt(range.value / 1000 * a.duration) + " / " + fmt(a.duration);
+    });
+    range.addEventListener("change", function(){
+      if (a.duration) a.currentTime = range.value / 1000 * a.duration;
+      dragging = false;
+    });
+    box.querySelectorAll("[data-skip]").forEach(function(b){
+      b.addEventListener("click", function(){
+        var t = a.currentTime + Number(b.getAttribute("data-skip"));
+        a.currentTime = Math.max(0, Math.min(a.duration || 0, t));
+        paint();
+      });
+    });
+    speed.addEventListener("click", function(){
+      ri = (ri + 1) % RATES.length;
+      a.playbackRate = RATES[ri];
+      speed.textContent = RATES[ri] + "×";
+    });
+  });
+
+  return { pauseAll: function(){ all.forEach(function(m){ m.pause(); }); } };
 })();
 
 /* ================= INIT ================= */
